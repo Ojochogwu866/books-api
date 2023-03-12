@@ -8,7 +8,7 @@ const {
   deleteCurrentBook,
   createCurrentBook,
 } = require("../controllers/books");
-
+const { createBookGoals } = require("../controllers/bookGoals");
 router.route("/").post(createCurrentBook).get(getAllBooks);
 router
   .route("/:id")
@@ -16,4 +16,5 @@ router
   .delete(deleteCurrentBook)
   .patch(updateCurrentBook);
 
+router.route("/book-goals").post(createBookGoals).get();
 module.exports = router;
