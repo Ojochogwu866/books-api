@@ -3,18 +3,17 @@ const router = express.Router();
 
 const {
   getAllBooks,
-  getBookGoals,
   getCurrentBook,
-  getBookStats,
-  updateBookGoals,
-  updateBookStats,
-  updateCurrentReading,
-  createBookGoals,
-  createBookStats,
-  createCurrentReading,
+  updateCurrentBook,
+  deleteCurrentBook,
+  createCurrentBook,
 } = require("../controllers/books");
 
-router.route("/").post(createCurrentReading).get(getCurrentBook);
-router.route("/:id").post(createCurrentReading).get(getCurrentBook);
+router.route("/").post(createCurrentBook).get(getAllBooks);
+router
+  .route("/:id")
+  .get(getCurrentBook)
+  .delete(deleteCurrentBook)
+  .patch(updateCurrentBook);
 
 module.exports = router;
