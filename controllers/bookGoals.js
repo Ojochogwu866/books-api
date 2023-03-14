@@ -3,9 +3,28 @@ const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError } = require("../errors");
 
 const createBookGoals = async (req, res) => {
-  req.body.createdBy = req.user.userId;
-  const bookGoals = await BookGoals.create(req.body);
-  res.status(StatusCodes.CREATED).json({ bookGoals });
+  try {
+    const userId = req.user.userId;
+    const bookGoalsData = req.body;
+
+    const canCreateNew = await BookGoals.canCreateNew(userId);
+    if (!canCreateNew) {
+      return res.status(StatusCodes.FORBIDDEN).json({
+        message: "Cannot create a new BookGoals record yet",
+      });
+    }
+    const bookGoals = await BookGoals.create({
+      ...bookGoalsData,
+      createdBy: userId,
+    });
+
+    res.status(StatusCodes.CREATED).json({ bookGoals });
+  } catch (error) {
+    console.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: "Failed to create BookGoals record",
+    });
+  }
 };
 const getAllBookGoals = async (req, res) => {
   const books = await BookGoals.find({ createdBy: req.user.userId }).sort(
@@ -29,7 +48,7 @@ const deleteBookGoals = async (req, res) => {
 };
 const updateBookGoals = async (req, res) => {
   const {
-    body: { totalRead, monthlyRead, pagesPerWeek, pagesPerDay },
+    body: { totalRead, monthlyRead, pagesPerWeek, pagesPerDay, timeInterval },
     user: { userId },
     params: { id: booksId },
   } = req;
@@ -37,16 +56,24 @@ const updateBookGoals = async (req, res) => {
     totalRead === "" ||
     monthlyRead === "" ||
     pagesPerWeek === "" ||
-    pagesPerDay === ""
+    pagesPerDay === "" ||
+    timeInterval === ""
   ) {
     throw new BadRequestError("fields cannot be empty");
   }
-  const book = await BookGoals.findByIdAndUpdate(
+  const book = await BookGoals.findOneAndUpdate(
     {
       _id: booksId,
       createdBy: userId,
     },
-    req.body,
+    {
+      totalRead,
+      monthlyRead,
+      pagesPerWeek,
+      pagesPerDay,
+      timeInterval,
+      lastUpdated: timeInterval !== undefined ? new Date() : undefined,
+    },
     { new: true, runValidators: true }
   );
   if (!book) {
@@ -68,7 +95,6 @@ const getBookGoals = async (req, res) => {
   }
   res.status(StatusCodes.OK).json({ book });
 };
-
 module.exports = {
   deleteBookGoals,
   getBookGoals,

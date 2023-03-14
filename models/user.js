@@ -21,6 +21,30 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide password"],
     minlength: 6,
   },
+  twitter: {
+    type: String,
+    required: false,
+    minlength: 3,
+    maxlength: 50,
+  },
+  facebook: {
+    type: String,
+    required: false,
+    minlength: 3,
+    maxlength: 50,
+  },
+  dateOfBirth: {
+    type: Date,
+    required: false,
+    minlength: 3,
+    maxlength: 50,
+  },
+  country: {
+    type: String,
+    required: false,
+    minlength: 3,
+    maxlength: 50,
+  },
 });
 
 UserSchema.pre("save", async function (next) {
