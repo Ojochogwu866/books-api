@@ -22,11 +22,6 @@ const bookSchema = new mongoose.Schema(
       required: [true, "Please enter book pages"],
       maxlength: 250,
     },
-    pagesLeft: {
-      type: Number,
-      required: [true, "Please enter book title"],
-      maxlength: 250,
-    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",

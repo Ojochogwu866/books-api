@@ -14,7 +14,9 @@ const authenticateUser = require("./middleware/authentication");
 //routers
 const authRouter = require("./routes/auth");
 const bookRouter = require("./routes/books");
+const bookGoalsRouter = require("./routes/bookGoals");
 const profile = require("./routes/profile");
+const bookStatsRouter = require("./routes/bookStats");
 
 //handle-errors
 const notFoundMiddleware = require("./middleware/not-found");
@@ -37,6 +39,8 @@ app.use(rateLimiter());
 //routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/books", authenticateUser, bookRouter);
+app.use("/api/v1/book-goals", authenticateUser, bookGoalsRouter);
+app.use("/api/v1/book-stats", authenticateUser, bookStatsRouter);
 app.use("/api/v1/auth", authenticateUser, profile);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
