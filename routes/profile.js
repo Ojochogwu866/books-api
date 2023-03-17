@@ -3,5 +3,5 @@ const router = express.Router();
 
 const { getUserProfile } = require("../controllers/auth");
 
-router.route("/profile/:id").get(getUserProfile);
+router.route("/:id").get(getUserProfile);
 module.exports = router;

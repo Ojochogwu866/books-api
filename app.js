@@ -41,7 +41,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/books", authenticateUser, bookRouter);
 app.use("/api/v1/book-goals", authenticateUser, bookGoalsRouter);
 app.use("/api/v1/book-stats", authenticateUser, bookStatsRouter);
-app.use("/api/v1/auth", authenticateUser, profile);
+app.use("/api/v1/auth/profile", authenticateUser, profile);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
