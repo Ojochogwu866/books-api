@@ -30,7 +30,10 @@ const getAllBookGoals = async (req, res) => {
   const books = await BookGoals.find({ createdBy: req.user.userId }).sort(
     "createdAt"
   );
-  res.status(StatusCodes.OK).json({ books, count: books.length });
+  res.status(StatusCodes.OK).json({
+    books,
+    count: books.length,
+  });
 };
 const deleteBookGoals = async (req, res) => {
   const {
