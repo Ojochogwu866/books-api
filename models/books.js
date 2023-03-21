@@ -22,6 +22,10 @@ const bookSchema = new mongoose.Schema(
       required: [true, "Please enter book pages"],
       maxlength: 250,
     },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",
