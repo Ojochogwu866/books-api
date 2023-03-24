@@ -22,17 +22,17 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide password"],
     minlength: 6,
   },
-  twitter: {
+  twitter_handle: {
     type: String,
     minlength: 3,
     maxlength: 50,
   },
-  facebook: {
+  facebook_handle: {
     type: String,
     minlength: 3,
     maxlength: 50,
   },
-  dateOfBirth: {
+  date_of_birth: {
     type: Date,
     maxlength: 50,
   },
