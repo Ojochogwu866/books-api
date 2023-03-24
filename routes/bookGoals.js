@@ -14,6 +14,6 @@ router
   .route("/:id")
   .get(getBookGoals)
   .delete(deleteBookGoals)
-  .patch(updateBookGoals);
+  .put(updateBookGoals);
 
 module.exports = router;
