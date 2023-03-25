@@ -14,6 +14,6 @@ router
   .route("/:id")
   .get(getBookStats)
   .delete(deleteBookStats)
-  .patch(updateBookStats);
+  .put(updateBookStats);
 
 module.exports = router;
