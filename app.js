@@ -2,7 +2,8 @@ require("dotenv").config();
 require("express-async-errors");
 const express = require("express");
 const app = express();
-
+const passport = require("passport");
+const session = require("express-session");
 //api security
 const helmet = require("helmet");
 const cors = require("cors");
@@ -18,6 +19,9 @@ const bookGoalsRouter = require("./routes/bookGoals");
 const profile = require("./routes/profile");
 const bookStatsRouter = require("./routes/bookStats");
 
+require("./config/passport");
+require("./config/google-config");
+
 //handle-errors
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
@@ -29,12 +33,20 @@ app.use(
     max: 100,
   })
 );
-
+app.use(
+  session({
+    secret: "secr3t",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(xss());
 app.use(rateLimiter());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //routes
 app.use("/api/v1/auth", authRouter);

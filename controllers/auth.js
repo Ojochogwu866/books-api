@@ -31,7 +31,6 @@ const login = async (req, res) => {
       email: user.email,
       phone_number: user.phone_number,
       country: user.country,
-
       facebook_handle: user.facebook_handle,
       twitter_handle: user.twitter_handle,
     },

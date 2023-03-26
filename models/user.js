@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Please provide password"],
+    required: [false, "Please provide password"],
     minlength: 6,
   },
   twitter_handle: {
@@ -42,8 +42,10 @@ const UserSchema = new mongoose.Schema({
     maxlength: 50,
   },
 });
-
 UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
@@ -58,7 +60,9 @@ UserSchema.methods.createJWT = function () {
   );
 };
 UserSchema.methods.comparePassword = async function (candidatePassword) {
-  const isMatch = await bcrypt.compare(candidatePassword, this.password);
-  return isMatch;
+  if (this.password !== undefined) {
+    const isMatch = await bcrypt.compare(candidatePassword, this.password);
+    return isMatch;
+  }
 };
 module.exports = mongoose.model("User", UserSchema);

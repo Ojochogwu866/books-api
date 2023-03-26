@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const bookGoals = new mongoose.Schema(
   {
     totalRead: {
@@ -60,5 +59,4 @@ bookGoals.statics.canCreateNew = async function (userId) {
   ); // 30 days in milliseconds
   return nextUpdateTime <= new Date();
 };
-
 module.exports = mongoose.model("BookGoals", bookGoals);

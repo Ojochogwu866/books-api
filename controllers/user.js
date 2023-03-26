@@ -5,25 +5,21 @@ const { BadRequestError, UnauthenticatedError } = require("../errors");
 const getUserProfile = async (req, res) => {
   const { userId } = req.user;
   const user = await User.findById(userId);
-  res
-    .status(StatusCodes.OK)
-    .json({
-      user: {
-        name: user.name,
-        email: user.email,
-        phone_number: user.phone_number,
-        country: user.country,
-       
-        facebook_handle: user.facebook_handle,
-        twitter_handle: user.twitter_handle,
-      },
-    });
+  res.status(StatusCodes.OK).json({
+    user: {
+      name: user.name,
+      email: user.email,
+      phone_number: user.phone_number,
+      country: user.country,
+      facebook_handle: user.facebook_handle,
+      twitter_handle: user.twitter_handle,
+    },
+  });
 };
 const updateUserProfile = async (req, res) => {
   const {
     name,
     email,
-   
     facebook_handle,
     twitter_handle,
     country,
@@ -37,7 +33,6 @@ const updateUserProfile = async (req, res) => {
     !facebook_handle ||
     !twitter_handle ||
     !country ||
-   
     !phone_number
   ) {
     throw new BadRequestError("All fields are required");
@@ -46,7 +41,6 @@ const updateUserProfile = async (req, res) => {
   const updates = {
     name,
     email,
-   
     facebook_handle,
     twitter_handle,
     country,
@@ -66,7 +60,6 @@ const updateUserProfile = async (req, res) => {
   res.status(StatusCodes.OK).json({
     name: user.name,
     email: user.email,
-   
     facebook_handle: user.facebook_handle,
     twitter_handle: user.twitter_handle,
     country: user.country,
