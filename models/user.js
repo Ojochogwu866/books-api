@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
     required: [false, "Please provide password"],
     minlength: 6,
   },
+  username: {
+    type: String,
+    unique: true,
+  },
   twitter_handle: {
     type: String,
     minlength: 3,
@@ -48,6 +52,13 @@ UserSchema.pre("save", async function (next) {
   }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  const username = this.name.replace(/\s/g, "");
+  const existingUser = await this.constructor.findOne({ username });
+  if (existingUser) {
+    this.username = `${username}${Math.floor(Math.random() * 100)}`;
+  } else {
+    this.username = username;
+  }
   next();
 });
 UserSchema.methods.createJWT = function () {
