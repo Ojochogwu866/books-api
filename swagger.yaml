@@ -26,21 +26,123 @@ openapi: 3.0.0
 info:
   version: "1.0.0"
   title: Your API Title
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: Your API Title
 paths:
-  /api/v1/book-goals:
+  /api/v1/users:
+    post:
+      summary: Create User
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: User created successfully
+
+  /api/v1/users/{username}:
     get:
-      summary: Get All Book Goals
-      operationId: getAllBookGoals
-      security:
-        - bearerAuth: []
+      summary: Get User by Username
+      operationId: getUserByUsername
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Successful operation
+
+    put:
+      summary: Update User
+      operationId: updateUser
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: User updated successfully
+
+  /api/v1/book-stats:
+    post:
+      summary: Create Book Stats
+      operationId: createBookStats
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookStatsRequest'
+      responses:
+        '200':
+          description: Book Stats created successfully
+
+  /api/v1/book-stats/{id}:
+    get:
+      summary: Get Book Stats by ID
+      operationId: getBookStatsById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+
+    put:
+      summary: Update Book Stats
+      operationId: updateBookStats
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookStatsRequest'
+      responses:
+        '200':
+          description: Book Stats updated successfully
+
+    delete:
+      summary: Delete Book Stats
+      operationId: deleteBookStats
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Book Stats deleted successfully
+
+  /api/v1/book-goals:
     post:
       summary: Create Book Goals
       operationId: createBookGoals
-      security:
-        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookGoalsRequest'
       responses:
         '200':
           description: Book Goals created successfully
@@ -49,8 +151,6 @@ paths:
     get:
       summary: Get Book Goals by ID
       operationId: getBookGoalsById
-      security:
-        - bearerAuth: []
       parameters:
         - name: id
           in: path
@@ -60,25 +160,28 @@ paths:
       responses:
         '200':
           description: Successful operation
+
     put:
       summary: Update Book Goals
       operationId: updateBookGoals
-      security:
-        - bearerAuth: []
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookGoalsRequest'
       responses:
         '200':
           description: Book Goals updated successfully
+
     delete:
       summary: Delete Book Goals
       operationId: deleteBookGoals
-      security:
-        - bearerAuth: []
       parameters:
         - name: id
           in: path
@@ -90,29 +193,22 @@ paths:
           description: Book Goals deleted successfully
 
   /api/v1/books:
-    get:
-      summary: Get All Books
-      operationId: getAllBooks
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Successful operation
     post:
-      summary: Create Current Book
-      operationId: createCurrentBook
-      security:
-        - bearerAuth: []
+      summary: Create Book
+      operationId: createBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
       responses:
         '200':
-          description: Current Book created successfully
+          description: Book created successfully
 
   /api/v1/books/{id}:
     get:
-      summary: Get Current Book by ID
-      operationId: getCurrentBookById
-      security:
-        - bearerAuth: []
+      summary: Get Book by ID
+      operationId: getBookById
       parameters:
         - name: id
           in: path
@@ -122,25 +218,28 @@ paths:
       responses:
         '200':
           description: Successful operation
+
     put:
-      summary: Update Current Book
-      operationId: updateCurrentBook
-      security:
-        - bearerAuth: []
+      summary: Update Book
+      operationId: updateBook
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
       responses:
         '200':
-          description: Current Book updated successfully
+          description: Book updated successfully
+
     delete:
-      summary: Delete Current Book
-      operationId: deleteCurrentBook
-      security:
-        - bearerAuth: []
+      summary: Delete Book
+      operationId: deleteBook
       parameters:
         - name: id
           in: path
@@ -149,123 +248,106 @@ paths:
             type: string
       responses:
         '200':
-          description: Current Book deleted successfully
-
-  /api/v1/book-stats:
-    get:
-      summary: Get All Book Stats
-      operationId: getAllBookStats
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Successful operation
-    post:
-      summary: Create Book Stats
-      operationId: createBookStats
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Book Stats created successfully
-
-  /api/v1/book-stats/{id}:
-    get:
-      summary: Get Book Stats by ID
-      operationId: getBookStatsById
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successful operation
-    put:
-      summary: Update Book Stats
-      operationId: updateBookStats
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Book Stats updated successfully
-    delete:
-      summary: Delete Book Stats
-      operationId: deleteBookStats
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Book Stats deleted successfully
-
-  /api/v1/auth/profile:
-    get:
-      summary: Get User Profile
-      operationId: getUserProfile
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Successful operation
-    put:
-      summary: Update User Profile
-      operationId: updateUserProfile
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: User Profile updated successfully
-
-  /api/v1/auth/register:
-    post:
-      summary: Register User
-      operationId: registerUser
-      responses:
-        '200':
-          description: User registered successfully
-
-  /api/v1/auth/login:
-    post:
-      summary: User Login
-      operationId: loginUser
-      responses:
-        '200':
-          description: User logged in successfully
-
-  /api/v1/auth/google:
-    get:
-      summary: Initiate Google Authentication
-      operationId: initiateGoogleAuth
-      responses:
-        '200':
-          description: Google authentication initiated successfully
-
-  /api/v1/auth/google/callback:
-    get:
-      summary: Google Authentication Callback
-      operationId: googleAuthCallback
-      responses:
-        '200':
-          description: Google authentication callback successful
+          description: Book deleted successfully
 
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
+  schemas:
+    UserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          unique: true
+        password:
+          type: string
+          minLength: 6
+        username:
+                  type: string
+        twitter_handle:
+          type: string
+          minLength: 3
+          maxLength: 50
+        facebook_handle:
+          type: string
+          minLength: 3
+          maxLength: 50
+        date_of_birth:
+          type: string
+          format: date
+        country:
+          type: string
+          minLength: 3
+          maxLength: 50
+
+    BookStatsRequest:
+      type: object
+      properties:
+        pagesCompleted:
+          type: number
+          maximum: 250
+        booksCompleted:
+          type: number
+          maximum: 250
+        booksPerGenre:
+          type: string
+          maxLength: 250
+        pagesPerWeek:
+          type: number
+          maximum: 250
+        createdBy:
+          type: string
+          format: uuid
+
+    BookGoalsRequest:
+      type: object
+      properties:
+        totalRead:
+          type: number
+          maximum: 250
+        monthlyRead:
+          type: number
+          maximum: 250
+        pagesPerDay:
+          type: string
+          maxLength: 250
+        pagesPerWeek:
+          type: number
+          maximum: 250
+        createdBy:
+          type: string
+          format: uuid
+        lastUpdated:
+          type: string
+          format: date
+        timeInterval:
+          type: number
+          enum: [1, 3, 6, 12]
+
+    BookRequest:
+      type: object
+      properties:
+        bookTitle:
+          type: string
+          maxLength: 250
+        bookAuthor:
+          type: string
+          maxLength: 250
+        bookGenre:
+          type: string
+          maxLength: 250
+        bookPages:
+          type: number
+          maximum: 250
+        completed:
+          type: boolean
+        createdBy:
+          type: string
+          format: uuid
+
+
 
