@@ -1,0 +1,271 @@
+openapi: 3.0.0
+info:
+  description: |
+    Swagger API interface for the You Read Book App
+    [http://swagger.io](http://swagger.io) or on
+    [irc.freenode.net, #swagger](http://swagger.io/irc/).
+  version: "1.0.0"
+  title: You Read Backend
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://you-read-api.onrender.com/api-docs
+tags:
+  - name: You Read
+    description: WIP: Access the various endpoints to integrate with the frontend
+    externalDocs:
+      description: Find out more
+      url: 'http://you-read.vercel.app'
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: Your API Title
+paths:
+  /api/v1/book-goals:
+    get:
+      summary: Get All Book Goals
+      operationId: getAllBookGoals
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+    post:
+      summary: Create Book Goals
+      operationId: createBookGoals
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Book Goals created successfully
+
+  /api/v1/book-goals/{id}:
+    get:
+      summary: Get Book Goals by ID
+      operationId: getBookGoalsById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+    put:
+      summary: Update Book Goals
+      operationId: updateBookGoals
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Book Goals updated successfully
+    delete:
+      summary: Delete Book Goals
+      operationId: deleteBookGoals
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Book Goals deleted successfully
+
+  /api/v1/books:
+    get:
+      summary: Get All Books
+      operationId: getAllBooks
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+    post:
+      summary: Create Current Book
+      operationId: createCurrentBook
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current Book created successfully
+
+  /api/v1/books/{id}:
+    get:
+      summary: Get Current Book by ID
+      operationId: getCurrentBookById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+    put:
+      summary: Update Current Book
+      operationId: updateCurrentBook
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Current Book updated successfully
+    delete:
+      summary: Delete Current Book
+      operationId: deleteCurrentBook
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Current Book deleted successfully
+
+  /api/v1/book-stats:
+    get:
+      summary: Get All Book Stats
+      operationId: getAllBookStats
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+    post:
+      summary: Create Book Stats
+      operationId: createBookStats
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Book Stats created successfully
+
+  /api/v1/book-stats/{id}:
+    get:
+      summary: Get Book Stats by ID
+      operationId: getBookStatsById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+    put:
+      summary: Update Book Stats
+      operationId: updateBookStats
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Book Stats updated successfully
+    delete:
+      summary: Delete Book Stats
+      operationId: deleteBookStats
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Book Stats deleted successfully
+
+  /api/v1/auth/profile:
+    get:
+      summary: Get User Profile
+      operationId: getUserProfile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+    put:
+      summary: Update User Profile
+      operationId: updateUserProfile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User Profile updated successfully
+
+  /api/v1/auth/register:
+    post:
+      summary: Register User
+      operationId: registerUser
+      responses:
+        '200':
+          description: User registered successfully
+
+  /api/v1/auth/login:
+    post:
+      summary: User Login
+      operationId: loginUser
+      responses:
+        '200':
+          description: User logged in successfully
+
+  /api/v1/auth/google:
+    get:
+      summary: Initiate Google Authentication
+      operationId: initiateGoogleAuth
+      responses:
+        '200':
+          description: Google authentication initiated successfully
+
+  /api/v1/auth/google/callback:
+    get:
+      summary: Google Authentication Callback
+      operationId: googleAuthCallback
+      responses:
+        '200':
+          description: Google authentication callback successful
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+

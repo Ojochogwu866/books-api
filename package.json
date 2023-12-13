@@ -23,7 +23,10 @@
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "xss-clean": "^0.1.1"
+    "swagger-ui-express": "^5.0.0",
+    "xss-clean": "^0.1.1",
+    "yaml-js": "^0.3.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.21"

@@ -13,6 +13,9 @@ const rateLimiter = require("express-rate-limit");
 const connectDB = require("./db/connect");
 const authenticateUser = require("./middleware/authentication");
 //routers
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
 const authRouter = require("./routes/auth");
 const bookRouter = require("./routes/books");
 const bookGoalsRouter = require("./routes/bookGoals");
@@ -25,6 +28,8 @@ require("./config/google-config");
 //handle-errors
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
+
+
 
 app.set("trust proxy", 1);
 app.use(
@@ -49,7 +54,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //routes
+
+app.get("/", (req, res) => {
+  res.send('<h1>you read api</h1><a href="/api-docs">Documentation</a>');
+});
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use("/api/v1/auth", authRouter);
+
 app.use("/api/v1/books", authenticateUser, bookRouter);
 app.use("/api/v1/book-goals", authenticateUser, bookGoalsRouter);
 app.use("/api/v1/book-stats", authenticateUser, bookStatsRouter);
